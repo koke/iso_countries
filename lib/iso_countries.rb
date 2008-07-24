@@ -29,6 +29,16 @@ module ISO
       def get_country(code)
         COUNTRIES[code.to_sym]
       end
+      
+      def get_code(name)
+        if COUNTRIES.value?(name)
+          COUNTRIES.each_pair do |k,v|
+            if v.eql?(name)
+              return k.to_s
+            end
+          end
+        end
+      end
     
       # Returns an array with all the available country codes
       def country_codes

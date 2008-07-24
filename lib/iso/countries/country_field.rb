@@ -19,7 +19,7 @@ module ISO #:nodoc:
               def #{f}_name=(name)
                 code = ISO::Countries.get_code(name)
                 if code
-                  #{f} = code
+                  self.#{f} = code
                 else
                   raise ArgumentError, "Invalid country name"
                 end
