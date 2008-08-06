@@ -27,7 +27,7 @@ module ISO
       # Wrapper to get country name from country code. +code+ can be a symbol or a string containing the country code.
       # *Warning*: this functions returns the untranslated name, you have to apply _() manually.
       def get_country(code)
-        COUNTRIES[code.to_sym]
+        COUNTRIES[code.to_sym] rescue nil
       end
       
       def get_code(name)
