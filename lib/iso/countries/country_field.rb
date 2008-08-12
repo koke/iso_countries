@@ -10,7 +10,7 @@ module ISO #:nodoc:
           args.each do |f|
             class_eval <<-EOC
               
-              validates_inclusion_of :#{f}, :in => ISO::Countries.country_codes
+              validates_inclusion_of :#{f}, :in => ISO::Countries.country_codes, :allow_nil => true
               
               def #{f}_name
                 ISO::Countries.get_country(#{f})
