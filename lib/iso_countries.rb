@@ -17,7 +17,7 @@ module ISO
   module Countries
     class << self
       
-      bindtextdomain "iso_countries", :path => "locale"
+      bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
       
       def set_language(lang)
         @@language = lang
