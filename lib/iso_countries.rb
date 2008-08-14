@@ -1,33 +1,37 @@
 # IsoCountries
 
-#
-# Placeholder methods if gettext is not being used
-#
-unless defined?(_)
-  def _(msg)
-    msg
-  end
+require "rubygems"
+require "gettext"
+include GetText
+stubs = %w(activesupport activerecord actionpack actionmailer activeresource)
+stubs.each do |stub|
+  require stub
 end
-
-unless defined?(N_)
-  def N_(msg)
-    msg
-  end
-end
-
-###
 
 require "country_list"
 require "iso/countries/form_helpers"
+require "iso/countries/country_field"
 ActiveRecord::Base.send :include, ISO::Countries::CountryField
 
 module ISO
   module Countries
     class << self
+      
+      bindtextdomain "iso_countries", :path => "locale"
+      
+      def set_language(lang)
+        @@language = lang
+        GetText.locale = lang
+      end
+      
+      def language
+        @@language || "en"
+      end
+      
       # Wrapper to get country name from country code. +code+ can be a symbol or a string containing the country code.
       # *Warning*: this functions returns the untranslated name, you have to apply _() manually.
       def get_country(code)
-        COUNTRIES[code.to_sym] rescue nil
+        _(COUNTRIES[code.to_sym]) rescue nil
       end
       
       def get_code(name)

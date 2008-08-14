@@ -56,3 +56,21 @@ task :update do
   end
   
 end
+
+desc "Update pot/po files to match new version." 
+task :updatepo do
+  require 'gettext'
+  require 'gettext/utils'  
+
+  # GetText::ActiveRecordParser.init(:use_classname => false, :activerecord_classes => ['FakeARClass'])
+  GetText.update_pofiles('iso_countries', 
+                         Dir.glob("lib/**/*.rb"),
+                         "iso_countries plugin")
+end
+
+desc "Create mo-files"
+task :makemo do
+  require 'gettext'
+  require 'gettext/utils'  
+  GetText.create_mofiles(true, "po", "locale")
+end
