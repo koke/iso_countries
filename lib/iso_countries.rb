@@ -14,11 +14,7 @@ require "iso/countries/country_field"
 ActiveRecord::Base.send :include, ISO::Countries::CountryField
 
 module ISO
-  module Countries
-    class << self
-      include ClassMethods
-    end
-    
+  module Countries    
     module ClassMethods
       bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
       
@@ -54,5 +50,9 @@ module ISO
         COUNTRIES.keys.map { |key| key.to_s }
       end
     end  
+    
+    class << self
+      include ClassMethods
+    end
   end
 end
