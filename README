@@ -16,4 +16,10 @@ c.country_name            # => "Spain"
 c.country_name = "France"
 c.country                 # => "fr"
 
+Acknowledgements
+================
+
+Translations are provided by the iso-codes package
+http://pkg-isocodes.alioth.debian.org/
+
 Copyright (c) 2008 Jorge Bernal <jbernal@warp.es>, released under the MIT license
