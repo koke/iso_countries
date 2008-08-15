@@ -74,3 +74,18 @@ task :makemo do
   require 'gettext/utils'  
   GetText.create_mofiles(true, "po", "locale")
 end
+
+desc "Downloads translations from iso-codes repository"
+task :download do
+  repo = "svn://svn.debian.org/pkg-isocodes/trunk/iso-codes/iso_3166"
+  
+  FileUtils.rm_rf("tmp")
+  system "svn co #{repo} tmp"
+  Dir.glob("tmp/*.po").each do |pofile|
+    locale = File.basename(pofile, ".po")
+    FileUtils.mkdir_p("po/#{locale}")
+    puts "#{locale} -> po/#{locale}/iso_countries.po"
+    FileUtils.mv(pofile, "po/#{locale}/iso_countries.po")
+  end
+  FileUtils.rm_rf("tmp")
+end
