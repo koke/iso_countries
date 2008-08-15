@@ -16,24 +16,29 @@ ActiveRecord::Base.send :include, ISO::Countries::CountryField
 module ISO
   module Countries
     class << self
-      
+      include ClassMethods
+    end
+    
+    module ClassMethods
       bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
       
+      # Sets the language for country translation
       def set_language(lang)
         @@language = lang
         GetText.locale = lang
       end
       
+      # Gets te current translation language
       def language
         @@language || "en"
       end
       
       # Wrapper to get country name from country code. +code+ can be a symbol or a string containing the country code.
-      # *Warning*: this functions returns the untranslated name, you have to apply _() manually.
       def get_country(code)
         _(COUNTRIES[code.to_sym]) rescue nil
       end
       
+      # Wrapper to get country code from country name.
       def get_code(name)
         if COUNTRIES.value?(name)
           COUNTRIES.each_pair do |k,v|
@@ -48,12 +53,6 @@ module ISO
       def country_codes
         COUNTRIES.keys.map { |key| key.to_s }
       end
-    end
-  
-    module CountryHelper
-      def country_format(code)
-        _(COUNTRIES[code.to_sym])
-      end
-    end
+    end  
   end
 end

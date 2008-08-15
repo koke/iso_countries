@@ -1,11 +1,23 @@
 module ISO #:nodoc:
   module Countries #:nodoc:
-    module CountryField
+    module CountryField #:nodoc:
       def self.included(base) #:nodoc:
         base.extend ClassMethods
       end
       
       module ClassMethods
+        # Declares a field from a model as a iso code for a country
+        #
+        # Example:
+        #
+        #   class Company
+        #     iso_country :country
+        #   end
+        # 
+        #   c = Company.new(:country => "es")
+        #   c.country_name # => "Spain"
+        #   c.country_name = "France"
+        #   c.country # => "fr"
         def iso_country(*args)
           args.each do |f|
             class_eval <<-EOC
