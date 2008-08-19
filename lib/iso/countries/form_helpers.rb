@@ -14,7 +14,7 @@ module ActionView #:nodoc:
       # 
       def iso_options_for_select(selected = nil, priority_countries = nil)
         countries_for_select = {}
-        ISO::Countries::COUNTRIES.each_pair {|code,name| countries_for_select[_(name)] = code.to_s }
+        ISO::Countries::COUNTRIES.each_pair {|code,name| countries_for_select[ISO::Countries.get_country(code)] = code.to_s }
 
         country_options = ""
 

@@ -1,5 +1,7 @@
 module ISO
   module Countries
+    include GetText
+    
     COUNTRIES = {
       :af => N_("Afghanistan"),
       :ax => N_("Åland islands"),

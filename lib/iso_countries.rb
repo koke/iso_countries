@@ -2,7 +2,6 @@
 
 require "rubygems"
 require "gettext"
-include GetText
 stubs = %w(activesupport activerecord actionpack actionmailer activeresource)
 stubs.each do |stub|
   require stub
@@ -15,12 +14,14 @@ ActiveRecord::Base.send :include, ISO::Countries::CountryField
 
 module ISO
   module Countries    
-    module ClassMethods
-      bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
+    module ClassMethods      
+      GetText.bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
+      GetText.locale = 'en'
       
       # Sets the language for country translation
       def set_language(lang)
         @@language = lang
+        GetText.bindtextdomain "iso_countries", :path => "#{File.dirname(__FILE__)}/../locale"
         GetText.locale = lang
       end
       
@@ -44,7 +45,7 @@ module ISO
           end
         end
       end
-    
+          
       # Returns an array with all the available country codes
       def country_codes
         COUNTRIES.keys.map { |key| key.to_s }
