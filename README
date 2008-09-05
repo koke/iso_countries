@@ -16,6 +16,10 @@ This rails plugin enables you to store country info only with the country's ISO-
   ISO::Countries.set_language "es"
   c.country_name            # => "Francia"
 
+  <% form_for @company do |f| %>
+    <%= f.iso_country_select :country, [:es, :en] %>
+  <% end %>
+
 == Acknowledgements
 
 Translations are provided by the iso-codes package
