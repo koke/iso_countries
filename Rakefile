@@ -89,3 +89,33 @@ task :download do
   end
   FileUtils.rm_rf("tmp")
 end
+
+
+spec = Gem::Specification.new do |s|
+  s.name = "iso_countries"
+  s.version = "0.1"
+  s.author = "Jorge Bernal"
+  s.email = "jbernal@warp.es"
+  s.homepage = "http://github.com/koke/iso_countries"
+  s.platform = Gem::Platform::RUBY
+  s.summary = "Country selector with ISO codes"
+  s.files = FileList["README*",
+                                 "MIT-LICENSE",
+                                 "Rakefile",
+                                 "init.rb",
+                                 "{lib,tasks,test}/**/*"].to_a
+  s.require_path = "lib"
+  s.test_files = FileList["test/**/test_*.rb"].to_a
+  s.rubyforge_project = "iso_countries"
+  s.has_rdoc = false
+  s.extra_rdoc_files = FileList["README*"].to_a
+  s.rdoc_options << '--line-numbers' << '--inline-source'
+  s.requirements << "gettext"
+end
+
+desc "Generate a gemspec file for GitHub"
+task :gemspec do
+  File.open("#{spec.name}.gemspec", 'w') do |f|
+    f.write spec.to_ruby
+  end
+end
