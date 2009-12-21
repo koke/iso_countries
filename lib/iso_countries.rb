@@ -1,7 +1,15 @@
 # IsoCountries
 
 require "rubygems"
-require "gettext"
+begin
+  require "gettext"
+rescue
+  require "ostruct"
+  GetText = OpenStruct.new
+  def _(str)
+    str
+  end
+end
 stubs = %w(activesupport activerecord actionpack actionmailer activeresource)
 stubs.each do |stub|
   require stub
